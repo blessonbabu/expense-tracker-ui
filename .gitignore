@@ -1,0 +1,23 @@
+node_modules/
+npm-debug.log
+build
+coverage
+webpack-assets.json
+webpack-stats.json
+awsconfig.json
+
+# Exclude compiled files
+examples
+icon-builder/js
+icon-builder/jsx
+
+# Exclude IDE project folders
+.idea
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_STORE
+*.sw*
+local.sh
