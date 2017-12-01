@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: url(/fonts/open-sans.bold.ttf);
+}
+
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: url(/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: "OpenSans-Semibold";
+  src: url(/fonts/OpenSans-Semibold.ttf);
+}
+
+@import '~theme/colors.scss';
+@import '~theme/variables.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: $white;
+  margin: 0;
+  overflow: hidden;
+}
+
+:global {
+  #content {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button[disabled] {
+    background-color: $white !important;
+    color: $grey450 !important;
+    border: 1px solid $grey450 !important;
+    cursor: not-allowed;
+  }
+}
+
+.containerHeight {
+  height: 100%;
+  overflow-x: hidden;
+}
+.app {
+  padding-top: 35px;
+  display: table;
+  width: 100%;
+  background: $white;
+  height: 100%;
+
+  .brand {
+    position: absolute;
+    $size: 40px;
+    top: 5px;
+    left: 5px;
+    display: inline-block;
+    background: #2d2d2d url('images/logo.png') no-repeat center center;
+    width: $size;
+    height: $size;
+    background-size: 80%;
+    margin: 0 10px 0 0;
+    border-radius: $size / 2;
+  }
+  nav :global(.fa) {
+    font-size: 2em;
+    line-height: 20px;
+  }
+  font-family: "OpenSans-Regular";
+}
+.drawerOpen {
+  margin-left: 250px; /* Size of drawer */
+  width: calc(100% - 250px);
+}
+
+.appContent {
+  margin: 50px 0; // for fixed navbar
+}

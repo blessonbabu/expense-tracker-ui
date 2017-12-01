@@ -1,0 +1,96 @@
+/**
+ *  Define scss variables here.
+ *
+ *  Available options for Bootstrap:
+ *  http://getbootstrap.com/customize/
+ *
+ */
+
+// Custom Colors
+@import '~theme/colors';
+$cyan: #33e0ff;
+$humility: #777;
+
+// Bootstrap Variables
+$brand-primary: darken(#428bca, 6.5%);
+$brand-secondary: #e25139;
+$brand-success: #5cb85c;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+$brand-info: #5bc0de;
+
+$text-color: #333;
+
+$font-size-base: 14px;
+$font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
+
+$zLevel2: 2;
+$zLevel4: 4;
+$zLevel5: 5;
+$zLevel10: 10;
+$zLevel11: 11;
+
+$app-theme: #28a43e;
+$nav-bar-theme: #113a58;
+$nav-bar-bg: #2c75ad;
+$nav-highlight: #4683b9;
+$nav-border: #1f2f3b;
+$nav-bar-hover: #8d9db8;
+$app-theme-secondary: #e5dcf6;
+
+$error: #f43a01;
+$success: #7ac800;
+
+%cardsTemplate {
+  box-shadow: 0 0 2px $grey450;
+  background: $white;
+  margin: 0 20px 20px;
+  padding: 20px;
+}
+
+%pageHeadTemplate {
+  background: $grey200;
+  display: flex;
+  justify-content: space-between;
+
+  .breadCrumb {
+    padding: 20px;
+  }
+}
+
+%buttonTemplate {
+  margin: 0 10px;
+  background: $app-theme;
+  border: none;
+  border-radius: 4px;
+  color: $white;
+  font-family: OpenSans-Bold;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+%assignActionTemplate {
+  text-align: center;
+  margin-bottom: 20px;
+
+  button {
+    @extend %buttonTemplate;
+  }
+
+}
+
+%headRightContent {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  background: $white;
+  margin: 20px 15px 5px;
+  padding: 5px 7px;
+  box-shadow: 0 0 3px $grey600;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 26px;
+  color: $black;
+}
+
+$mobileWidth: 960px;
