@@ -1,5 +1,4 @@
 import { adminApiBase, generateURL } from './api';
-import access from './access';
 import appRoutes from './routes';
 
 /**
@@ -20,7 +19,6 @@ const mobileWidth = 960;
 const configuration = {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT,
-    access,
     appRoutes,
     app: {
         title: 'Expense Tracker',

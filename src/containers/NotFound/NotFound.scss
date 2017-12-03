@@ -1,0 +1,28 @@
+@import '~theme/variables.scss';
+
+.notFoundContainer {
+  text-align: center;
+
+  .notFound {
+    font-size: 16em;
+  }
+
+  .buttonContainer {
+    padding-top: 20px;
+    align-items: center;
+
+    button {
+      background: $green;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: $white;
+      font-family: OpenSans-Bold,Arial;
+      font-weight: 700;
+      font-size: 14px;
+      height: 35px;
+      padding: 6px 12px;
+      min-width: 25%;
+      margin-right: 10px;
+    }
+  }
+}

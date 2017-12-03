@@ -5,6 +5,7 @@
  *
  */
 
-export MenuButton from './MenuButton/MenuButton';
 export Link from './Link/Link';
 export Loader from './Loader/Loader';
+export MenuButton from './MenuButton/MenuButton';
+export Notification from './Notification/Notification';

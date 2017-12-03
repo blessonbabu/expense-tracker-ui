@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { access, mobileWidth } from 'config';
 import translation from 'i18n';
-import Loader from 'components/Loader/Loader';
+import { Notification, Loader } from 'components';
 import styles from './App.scss';
 import Login from 'containers/Login/Login';
 
 const { object, func } = PropTypes;
 
 @connect(
-  state => ({ user: state.auth.user}), {})
+  state => ({ user: state.auth.user, notification: state.auth.notification}), {})
 export default class App extends Component {
     static propTypes = {
         children: object,
+        notification: object,
         user: object,
     };
 
@@ -24,6 +25,7 @@ export default class App extends Component {
     static childContextTypes = {
         user: object.isRequired,
         i18n: object,
+        location: object,
     };
 
     state = {
@@ -34,6 +36,7 @@ export default class App extends Component {
         return {
             user: this.props.user || {},
             i18n: translation,
+            location: this.props.location,
         };
     }
 
@@ -48,14 +51,14 @@ export default class App extends Component {
       }
 
     render() {
-        const { user, location } = this.props;
+        const { user, location, notification } = this.props;
         console.log('location in app ', location);
         if (!user) {
             return (<Login location={location}/>);
         }
         return (
             <div className={styles.containerHeight} >
-                SuccessFully Entered
+                <Notification {...notification} />
                 {this.props.children}
                 <Loader />
             </div>

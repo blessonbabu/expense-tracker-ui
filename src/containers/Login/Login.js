@@ -3,22 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
-import { updateLoader } from 'redux/modules/loader';
-import { loginGoogle } from 'redux/modules/auth';
-import { MenuButton } from 'components';
 import { GoogleLogin } from 'react-google-login';
+import { updateLoader } from 'redux/modules/loader';
+import { showMessage } from 'redux/modules/auth';
+import { MenuButton, Notification } from 'components';
+
+import { appRoutes } from 'config';
 
 import styles from './Login.scss';
 
 const { func, object } = PropTypes;
 
 @connect(
-  state => ({ user: state.auth.user }), { updateLoader, loginGoogle }
-)
+  state => ({ user: state.auth.user, notification: state.auth.notification }),{ updateLoader, showMessage }
+  )
 export default class Login extends Component {
 
   static propTypes = {
-  	loginGoogle: func,
+    notification: object,
+    showMessage: func,
     updateLoader: func,
   };
 
@@ -39,19 +42,20 @@ export default class Login extends Component {
   responseGoogle = (response) => {
   	console.log(response);
   	if(response.error) {
-  		console.log('error found');
+  		this.props.showMessage('error', 'Error Login Using Google');
   	} else {
   		const { name } = response.profileObj;
       const { expires_at:expiresAt, id_token:idToken } = response.tokenObj;
-  		console.log('id_token ', idToken);
-      console.log('expires_at ', expiresAt);
-  		console.log('name ', name);
-      console.log('profile ', response.profileObj)
-      // localStorage.setItem('userexpiry', expiresAt);
-      // localStorage.setItem('user', JSON.stringify(response.tokenObj));
-      // console.log('location ', this.props.location);
-      // window.location.assign(this.props.location.pathname);
-  		// this.props.loginGoogle(idToken, expiresAt);
+      const { profile: {link} } = appRoutes;
+      const { pathname } = this.props.location;
+      console.log('profile ', response.profileObj);
+      console.log('token ', response.tokenObj);
+      localStorage.setItem('userexpiry', expiresAt);
+      localStorage.setItem('user', JSON.stringify(response.tokenObj));
+      if (pathname === '/')
+        window.location.assign(link);
+      else
+        window.location.assign(pathname);
   	}
   }
 
@@ -65,6 +69,7 @@ export default class Login extends Component {
 
   render() {
     const { password, email, login, loginGoogle } = this.context.i18n;
+    const { notification } = this.props;
 
     return (
       <div className={styles.loginWrapper}>
@@ -72,6 +77,7 @@ export default class Login extends Component {
         <form className={styles.loginForm} name="form" role="form" action="/api/auth/login" method="post">
           <div className={styles.loginHead}>Login</div>
           <div className={styles.formContainer}>
+            <Notification {...notification} />
             <div className={classnames(styles.textInput, styles.loginInput)}>
               <label htmlFor="username">{email}</label>
               <i className={classnames(styles.formControlIcon, 'fa fa-user')} aria-hidden="true" />
@@ -96,8 +102,8 @@ export default class Login extends Component {
               />
             </div>
             <div className={styles.buttonContainer}>
-	          <MenuButton label={login} type="submit" className={styles.loginBtn} />
-	        </div>
+	           <MenuButton label={login} type="submit" className={styles.loginBtn} />
+	          </div>
           </div>
           <div className={styles.googleContainer} >
           <GoogleLogin

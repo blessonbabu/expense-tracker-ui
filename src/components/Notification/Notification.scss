@@ -1,0 +1,32 @@
+@import '~theme/colors.scss';
+
+.rootClass {
+  top: 50px;
+  right: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 10;
+  font-family: Opensans-Bold;
+  white-space: nowrap;
+  background-color: $white;
+  font-size: 13px;
+  
+  &.hide {
+    display: none;
+  }
+
+  &.info {
+    color: $yellow600;
+    border-color: $yellow600;
+  }
+
+  &.error {
+    color: $red900;
+    border-color: $red900;
+  }
+
+  &.success {
+    color: $green900;
+    border-color: $green900;
+  }
+}

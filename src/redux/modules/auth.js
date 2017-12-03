@@ -19,10 +19,6 @@ const USER_LOGIN_SUCCESS = 'expensetracker/auth/USER_LOGIN_SUCCESS';
 const USER_LOGIN_FAIL = 'expensetracker/auth/USER_LOGIN_FAIL';
 const USER_LOGIN_API_KEY = 'userLoginDetails';
 
-const GOOGLE_LOGIN = 'expensetracker/auth/GOOGLE_LOGIN';
-const GOOGLE_LOGIN_SUCCESS = 'expensetracker/auth/GOOGLE_LOGIN_SUCCESS';
-const GOOGLE_LOGIN_FAIL = 'expensetracker/auth/GOOGLE_LOGIN_FAIL';
-
 const SHOW_NOTIFICATION = 'expensetracker/app/SHOW_NOTIFICATION';
 const HIDE_NOTIFICATION = 'expensetracker/app/HIDE_NOTIFICATION';
 
@@ -55,14 +51,12 @@ export default function reducer(state = initialState, action = {}) {
                 error: action.error,
             };
         case LOGIN:
-        case GOOGLE_LOGIN:
             return {
                 ...state,
                 loginError: null,
                 loggingIn: true,
             };
         case LOGIN_SUCCESS:
-        case GOOGLE_LOGIN_SUCCESS:
             return {
                 ...state,
                 loggingIn: false,
@@ -78,7 +72,6 @@ export default function reducer(state = initialState, action = {}) {
                 user: { ...action.result.user, token: action.result.access_token },
             };
         case LOGIN_FAIL:
-        case GOOGLE_LOGIN_FAIL:
             return {
                 ...state,
                 loggingIn: false,
@@ -171,20 +164,4 @@ export function showMessage(messagetype, message) {
 
         return dispatch({ type: SHOW_NOTIFICATION, messagetype, message });
     };
-}
-
-export function loginGoogle(idToken, expiresAt) {
-    console.log('loginGoogle function  called succesfully');
-    return dispatch => dispatch({
-        types: [LOAD_USER,LOAD_USER_SUCCESS,LOAD_USER_FAIL],
-        promise: client => client.get(generateURL(FETCH_USER_DETAILS_API_KEY).replace('%d',userId)).then((result) => {
-            localStorage.setItem('user', JSON.stringify(result.data));
-            return result;
-        })
-            .then(() => window.location.assign("/clients"))
-            .catch((err) => {
-                dispatch(updateLoader(false));
-                throw err;
-            }),
-    });
 }
