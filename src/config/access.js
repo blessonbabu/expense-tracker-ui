@@ -9,9 +9,11 @@ const { profile } = appRoutes;
 const access = {
     'Super-User': {
         root: `/${profile.link}`,
+        restrictions: [],
     },
     'Default': {
         root: `/${profile.link}`,
+        restrictions: [],
     },
 };
 

@@ -75,8 +75,10 @@ export default (store) => {
      * Validates whether the user have access to current route.
      */
     const ensureAccess = (nextState, replace, cb) => {
+        console.log('entered ensure access');
         const { auth: { user } } = store.getState();
         const nextPath = nextState.location.pathname;
+        console.log('user role', user);
 
         if (user && nextPath !== '/') {
             const { restrictions = [], root } = access[user.role];
@@ -92,8 +94,8 @@ export default (store) => {
      * Please keep routes in alphabetical order
      */
     return (
-        <Route path="/" component={App}>
-            <Route path="profile" component={AppProfile} />
+        <Route path="/" component={App} onEnter={requireLogin} >
+            <Route path="profile" component={AppProfile} onEnter={ensureAccess} />
         </Route>
     );
 };

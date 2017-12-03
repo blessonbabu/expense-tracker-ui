@@ -4,6 +4,7 @@ export default {
     lastname: 'Last Name',
     logout: 'Logout',
     login: 'Login',
+    loginGoogle: 'Login Via Google',
     username: 'Username',
     password: 'Password',
     cancel: 'Cancel',

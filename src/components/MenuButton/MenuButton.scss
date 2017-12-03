@@ -1,0 +1,38 @@
+@import '~theme/variables';
+
+.menubutton {
+  display: inline-block;
+
+  button {
+    height: 30px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+
+    &.primary,
+    &.secondary {
+      border-radius: 5px;
+      color: $white;
+      background-color: #00446b;
+    }
+
+    &.secondary {
+      background-color: #00446b;
+    }
+
+    &.disabled {
+      background-color: #e0e0e0;
+      color:  #757575;
+      border: 1px solid $white;
+      border-radius: 5px;
+      cursor: no-drop;
+    }
+  }
+
+
+  .image {
+    height: 15px;
+    width: 15px;
+  }
+}

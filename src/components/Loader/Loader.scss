@@ -1,0 +1,11 @@
+@import '~theme/variables.scss';
+
+.loader {
+  position: fixed;
+  padding-top: 225px;
+  text-align: center;
+  width: 100%;
+  z-index: $zLevel11;
+  font-size: 5em;
+  top: 0;
+}
