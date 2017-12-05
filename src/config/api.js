@@ -2,6 +2,7 @@
  * Api server enpoint
  */
 export const adminApiBase = 'http://dev.seemymachines.com:8080';
+export const uiEndpoint = 'http://localhost:6070';
 
 /**
  * adminApi

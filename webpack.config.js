@@ -8,6 +8,7 @@ module.exports = {
         historyApiFallback: true,
         compress: true,
         port: 6070,
+        host: 'dev.expensetracker.com',
         hot: true,
     },
     entry: {

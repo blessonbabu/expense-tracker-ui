@@ -1,4 +1,4 @@
-import { adminApiBase, generateURL } from './api';
+import { adminApiBase, uiEndpoint, generateURL } from './api';
 import appRoutes from './routes';
 
 /**
@@ -15,7 +15,7 @@ const environment = {
     }
 }[process.env.NODE_ENV || 'development'];
 const mobileWidth = 960;
-
+const clientId = '697372493571-oq4lckprdun7dqiimsobf0us6k84e71i.apps.googleusercontent.com';
 const configuration = {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT,
@@ -42,8 +42,10 @@ const configuration = {
         },
         footer: 'Copyright (c) 2017 Expense Tracker. All Rights Reserved',
     },
+    clientId,
     adminApiBase,
     generateURL,
+    uiEndpoint,
     mobileWidth,
     ...environment,
 };

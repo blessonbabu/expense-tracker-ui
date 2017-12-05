@@ -9,6 +9,9 @@ const appRoutes = {
             width: 20,
         },
     },
+    logout: {
+        link: 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=',
+    }
 };
 
 export default appRoutes;

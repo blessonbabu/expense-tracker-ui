@@ -26,7 +26,7 @@ export default class AppProfile extends Component {
 
     render() {
         return (
-            <h>Hai Friends Welcome to ooty</h>
+            <div></div>
         );
     }
 }

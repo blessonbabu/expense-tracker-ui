@@ -22,7 +22,7 @@ const USER_LOGIN_API_KEY = 'userLoginDetails';
 const SHOW_NOTIFICATION = 'expensetracker/app/SHOW_NOTIFICATION';
 const HIDE_NOTIFICATION = 'expensetracker/app/HIDE_NOTIFICATION';
 
-export const LOGOUT = 'securehome/auth/LOGOUT';
+export const LOGOUT = 'expensetracker/auth/LOGOUT';
 
 const initialState = {
     loaded: false,
@@ -106,20 +106,19 @@ export default function reducer(state = initialState, action = {}) {
 export function isLoaded(globalState) {
     return globalState.auth && globalState.auth.loaded;
 }
+const deleteAllCookies = () => {
+    const cookies = document.cookie.split(";");
+    console.log('entered cookies delete ', cookies);
 
-export function logout(message) {
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (user && user.demo) {
-        document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        document.cookie = 'RP_LOGIN=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        localStorage.clear();
-        window.location.assign(demoUrl);
-    } else {
-        document.cookie = 'RP_LOGIN=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        localStorage.clear();
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
-
+}
+export function logout(message) {
+    localStorage.clear();
     return { type: LOGOUT, error: message };
 }
 

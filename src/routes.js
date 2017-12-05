@@ -24,7 +24,6 @@ export default (store) => {
         function checkAuth() {
             const { auth: { user } } = store.getState();
             const nextPath = nextState.location.pathname;
-
             if (user && nextPath === '/') {
                 const { profile: { link } } = appRoutes;
                 replace(link);

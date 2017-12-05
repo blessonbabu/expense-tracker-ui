@@ -5,17 +5,16 @@ import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import { GoogleLogin } from 'react-google-login';
 import { updateLoader } from 'redux/modules/loader';
-import { showMessage } from 'redux/modules/auth';
 import { MenuButton, Notification } from 'components';
 
-import { appRoutes } from 'config';
+import { appRoutes, clientId } from 'config';
 
 import styles from './Login.scss';
 
 const { func, object } = PropTypes;
 
 @connect(
-  state => ({ user: state.auth.user, notification: state.auth.notification }),{ updateLoader, showMessage }
+  state => ({ user: state.auth.user, notification: state.auth.notification }),{ updateLoader }
   )
 export default class Login extends Component {
 
@@ -44,7 +43,7 @@ export default class Login extends Component {
   	if(response.error) {
   		this.props.showMessage('error', 'Error Login Using Google');
   	} else {
-  		const { name } = response.profileObj;
+      const { name } = response.profileObj;
       const { expires_at:expiresAt, id_token:idToken } = response.tokenObj;
       const { profile: {link} } = appRoutes;
       const { pathname } = this.props.location;
@@ -52,6 +51,7 @@ export default class Login extends Component {
       console.log('token ', response.tokenObj);
       localStorage.setItem('userexpiry', expiresAt);
       localStorage.setItem('user', JSON.stringify(response.tokenObj));
+      localStorage.setItem('logFrom', 'google');
       if (pathname === '/')
         window.location.assign(link);
       else
@@ -65,6 +65,7 @@ export default class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log('submitted succesfully ', this.state.email, this.state.password);
+    localStorage.setItem('logFrom', 'expense-api');
   };
 
   render() {
@@ -107,11 +108,13 @@ export default class Login extends Component {
           </div>
           <div className={styles.googleContainer} >
           <GoogleLogin
-  			    clientId="697372493571-oq4lckprdun7dqiimsobf0us6k84e71i.apps.googleusercontent.com"
-  			    buttonText={loginGoogle}
-  			    onSuccess={this.responseGoogle}
-  			    onFailure={this.responseGoogle}
-			     />
+            clientId={clientId}
+            scope="email profile"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            buttonText={loginGoogle}
+            isSignedIn={true}
+          />
 		  </div>
         </form>
       </div>
