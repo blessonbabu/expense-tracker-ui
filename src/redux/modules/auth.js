@@ -1,4 +1,4 @@
-import { generateURL, demoUrl } from '../../config';
+import { generateURL, demoUrl, appRoutes, uiEndpoint } from '../../config';
 import { updateLoader } from './loader';
 
 const LOAD = 'expensetracker/auth/LOAD';
@@ -118,7 +118,9 @@ const deleteAllCookies = () => {
     }
 }
 export function logout(message) {
+    console.log('njaanum');
     localStorage.clear();
+    document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
     return { type: LOGOUT, error: message };
 }
 

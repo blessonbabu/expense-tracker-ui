@@ -79,23 +79,26 @@ export default class App extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.user && !nextProps.user) {
           // logout
-            this.logoutApp();
-            this.props.router.push('/');
+            // const googleSignin = window.gapi.auth2.getAuthInstance().isSignedIn.Ab;
+            // console.log('chathi ivide aadyam keri 1');
+            // this.props.logout();
+            // console.log('chathi ivide aadyam keri 1');
+            // if (!googleSignin) {
+            //     document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
+            // }
+            // this.props.logout();
+            document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
+
+            // this.props.router.push('/');
         }
       }
 
 
     handleLogout = () => {
-        this.logoutApp();
-    }
-
-    logoutApp = () => {
-        const googleSignin = window.gapi.auth2.getAuthInstance().isSignedIn.Ab;
-        const loginFrom = localStorage.getItem("logFrom");
+        console.log('in callback logout 1');
         this.props.logout();
-        if (loginFrom === 'google' && !googleSignin) {
-            document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
-        }
+        console.log('in callback logout 2');
+        
     }
 
     render() {
