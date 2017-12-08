@@ -35,7 +35,9 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
+    "firebase": "^4.7.0",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
     "fs": "0.0.1-security",

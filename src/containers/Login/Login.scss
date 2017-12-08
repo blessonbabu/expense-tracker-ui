@@ -62,6 +62,12 @@
     }
   }
 
+  .footerContainer {
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
   .buttonContainer {
     padding-top: 20px;
 
@@ -81,7 +87,24 @@
   }
 
   .googleContainer {
-    text-align: center;
+
+    padding-top: 20px;
+
+    button {
+      background: $black;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: $white;
+      font-family: OpenSans-Bold,Arial;
+      font-weight: 700;
+      font-size: 14px;
+      height: 35px;
+      padding: 6px 12px;
+      min-width: 25%;
+      margin-right: 10px;
+      padding: 0 !important;
+      width: 150px !important;
+    }
   }
 
   .menuContainer {

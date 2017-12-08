@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { access, mobileWidth, appRoutes, uiEndpoint, clientId } from 'config';
-import translation from 'i18n';
-import { Loader } from 'components';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
-import styles from './App.scss';
+
+import translation from 'i18n';
+import { access, mobileWidth, appRoutes, uiEndpoint, clientId } from 'config';
+import { firebaseAuth } from "../../config/firebase";
 import { logout } from 'redux/modules/auth';
+import { Loader } from 'components';
 import Login from 'containers/Login/Login';
+
+import styles from './App.scss';
 
 const { object, func } = PropTypes;
 
@@ -43,7 +46,8 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        const { logout } = this.props;
+        const { logout, location } = this.props;
+        const { profile: {link} } = appRoutes;
 
         const params = {
             client_id: clientId,
@@ -51,7 +55,7 @@ export default class App extends Component {
             fetch_basic_profile: true,
             ux_mode: 'popup',
             scope: 'profile email',
-        }
+        };
 
         const myVar = setInterval(function(){
             if(window.gapi) {
@@ -74,32 +78,43 @@ export default class App extends Component {
             }
         }, 500);
 
+        firebaseAuth().onAuthStateChanged((user) => {
+            const userA = user;
+            console.log('user outside ', userA);
+            if (userA) {
+               console.log('user inside', userA);
+               const userJson = JSON.parse(atob(userA.pa.split('.')[1]));
+               const expires = parseInt(userJson.exp, 10) * 1000;
+               const userAuth = {
+                   token_type: "Bearer",
+                   expires_at: expires,
+                   id_token: userJson
+               };
+               localStorage.setItem('userexpiry', userJson.exp);
+               localStorage.setItem('user', JSON.stringify(userAuth));
+               localStorage.setItem('logFrom', 'firebase');
+               console.log('pathname', location.pathname);
+               // if (location.pathname === '/')
+               //     window.location.assign(link);
+               // else
+               //     window.location.assign(location.pathname);
+           }
+        });
+
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.user && !nextProps.user) {
-          // logout
-            // const googleSignin = window.gapi.auth2.getAuthInstance().isSignedIn.Ab;
-            // console.log('chathi ivide aadyam keri 1');
-            // this.props.logout();
-            // console.log('chathi ivide aadyam keri 1');
-            // if (!googleSignin) {
-            //     document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
-            // }
-            // this.props.logout();
+            localStorage.clear();
             document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
-
-            // this.props.router.push('/');
         }
       }
 
 
     handleLogout = () => {
-        console.log('in callback logout 1');
-        this.props.logout();
-        console.log('in callback logout 2');
-        
-    }
+        localStorage.clear();
+        document.location.assign(`${appRoutes.logout.link}${uiEndpoint}`);
+    };
 
     render() {
         const { user, location } = this.props;

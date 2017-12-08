@@ -1,5 +1,6 @@
 import { adminApiBase, uiEndpoint, generateURL } from './api';
 import appRoutes from './routes';
+import fb from './firebase';
 
 /**
  * Required as Karma doesn't support some of the new features
@@ -44,6 +45,7 @@ const configuration = {
     },
     clientId,
     adminApiBase,
+    fb,
     generateURL,
     uiEndpoint,
     mobileWidth,

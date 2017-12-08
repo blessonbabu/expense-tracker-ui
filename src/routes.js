@@ -33,6 +33,7 @@ export default (store) => {
             cb();
         }
         if (!isAuthLoaded(store.getState())) {
+            console.log('enterede not auth');
             store.dispatch(loadAuth()).then(checkAuth, checkAuth);
         } else {
             checkAuth();
